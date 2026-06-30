@@ -1,0 +1,62 @@
+{
+	"$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+	"name": "io.github.nirholas/agentcore-payments-mcp",
+	"title": "three.ws Agent Payments",
+	"description": "Platform-managed payment sessions for AI agents — pay any x402 endpoint without holding a private key. Governance-enforced budget limits, URL allowlists, and per-tx ceilings.",
+	"websiteUrl": "https://three.ws",
+	"icons": [
+		{
+			"src": "https://three.ws/three-ws-mcp-icon.svg",
+			"mimeType": "image/svg+xml",
+			"sizes": [
+				"any"
+			]
+		}
+	],
+	"repository": {
+		"url": "https://github.com/nirholas/agentcore-payments-mcp",
+		"source": "github"
+	},
+	"version": "0.1.0",
+	"packages": [
+		{
+			"registryType": "npm",
+			"identifier": "@three-ws/agentcore-payments-mcp",
+			"version": "0.1.0",
+			"runtimeHint": "npx",
+			"transport": {
+				"type": "stdio"
+			},
+			"environmentVariables": [
+				{
+					"name": "THREE_WS_SESSION",
+					"description": "Your three.ws session token (value of the `__Host-sid` cookie from a signed-in browser). Required for account management operations: create_payment_session, list_payment_sessions, check_payment_session, cancel_payment_session.",
+					"format": "string",
+					"isRequired": false,
+					"isSecret": true
+				},
+				{
+					"name": "PAYMENT_SESSION_TOKEN",
+					"description": "A payment session bearer token (starts with 'pss_') from create_payment_session. Used by the agent for pay_with_session calls when no inline token is passed. Treat like a spending card — it authorizes payments up to the session's budget.",
+					"format": "string",
+					"isRequired": false,
+					"isSecret": true
+				},
+				{
+					"name": "THREE_WS_BASE",
+					"description": "Base URL of the three.ws API. Override only when self-hosting or targeting a preview deployment.",
+					"format": "string",
+					"isRequired": false,
+					"default": "https://three.ws"
+				},
+				{
+					"name": "THREE_WS_TIMEOUT_MS",
+					"description": "Per-request HTTP timeout in milliseconds. x402 payments involve on-chain settlement so this should be generous (default: 30000).",
+					"format": "number",
+					"isRequired": false,
+					"default": "30000"
+				}
+			]
+		}
+	]
+}

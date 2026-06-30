@@ -1,0 +1,59 @@
+{
+	"name": "@three-ws/agentcore-payments-mcp",
+	"version": "0.1.0",
+	"mcpName": "io.github.nirholas/agentcore-payments-mcp",
+	"description": "Platform-managed agent payment sessions — create a budget, pay any x402 endpoint without holding a private key. Governed by spend limits, URL allowlists, and per-tx ceilings. The agent proposes spend; three.ws governance enforces policy.",
+	"type": "module",
+	"author": "nirholas <support@three.ws>",
+	"license": "SEE LICENSE IN LICENSE",
+	"homepage": "https://three.ws",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/nirholas/agentcore-payments-mcp.git"
+	},
+	"bugs": {
+		"url": "https://github.com/nirholas/three.ws/issues"
+	},
+	"keywords": [
+		"mcp",
+		"model-context-protocol",
+		"three.ws",
+		"x402",
+		"payments",
+		"agent-payments",
+		"payment-session",
+		"spend-governor",
+		"solana",
+		"usdc",
+		"ai-agent",
+		"agentcore"
+	],
+	"publishConfig": {
+		"access": "public"
+	},
+	"files": [
+		"src",
+		"server.json",
+		"README.md",
+		"LICENSE"
+	],
+	"bin": {
+		"agentcore-payments-mcp": "src/index.js"
+	},
+	"main": "./src/index.js",
+	"exports": {
+		".": "./src/index.js"
+	},
+	"engines": {
+		"node": ">=20"
+	},
+	"scripts": {
+		"start": "node src/index.js",
+		"test": "node --test \"test/**/*.test.mjs\"",
+		"inspect": "npx -y @modelcontextprotocol/inspector node src/index.js"
+	},
+	"dependencies": {
+		"@modelcontextprotocol/sdk": "^1.29.0",
+		"zod": "^3.23.8"
+	}
+}
