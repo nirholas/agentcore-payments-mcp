@@ -1,0 +1,26 @@
+# Dependencies
+node_modules/
+
+# Environment files — never commit session cookies or payment session tokens
+.env
+.env.local
+.env.*.local
+
+# npm packaging output
+*.tgz
+package-lock.json.bak
+
+# Logs
+*.log
+npm-debug.log*
+
+# Test / coverage output
+coverage/
+.nyc_output/
+
+# Editors / OS
+.idea/
+.vscode/sessions.json
+.DS_Store
+Thumbs.db
+*.swp
