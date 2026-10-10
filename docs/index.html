@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>@three-ws/agentcore-payments-mcp: Platform-managed agent payment sessions</title>
+<meta name="description" content="Platform-managed agent payment sessions — create a budget, pay any x402 endpoint without holding a private key. Governed by spend limits, URL allowlists, and per-tx ceilings. The agent proposes spend; three.ws governance enforces policy.">
+<link rel="canonical" href="https://nirholas.github.io/agentcore-payments-mcp/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="three.ws">
+<meta property="og:title" content="@three-ws/agentcore-payments-mcp">
+<meta property="og:description" content="Platform-managed agent payment sessions — create a budget, pay any x402 endpoint without holding a private key. Governed by spend limits, URL allowlists, and per-tx ceilings. The agent proposes spend; three.ws governance enforces policy.">
+<meta property="og:url" content="https://nirholas.github.io/agentcore-payments-mcp/">
+<meta property="og:image" content="https://nirholas.github.io/agentcore-payments-mcp/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="@three-ws/agentcore-payments-mcp">
+<meta name="twitter:description" content="Platform-managed agent payment sessions — create a budget, pay any x402 endpoint without holding a private key. Governed by spend limits, URL allowlists, and per-tx ceilings. The agent proposes spend; three.ws governance enforces policy.">
+<meta name="twitter:image" content="https://nirholas.github.io/agentcore-payments-mcp/og.png">
+<meta name="keywords" content="mcp, model-context-protocol, three.ws, x402, payments, agent-payments, payment-session, spend-governor, solana, usdc, ai-agent, agentcore, mcp-server, ai-agents">
+<link rel="alternate" type="text/plain" href="llms.txt" title="llms.txt">
+<link rel="icon" href="https://three.ws/three-ws-mcp-icon.svg" type="image/svg+xml">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareSourceCode","name":"@three-ws/agentcore-payments-mcp","description":"Platform-managed agent payment sessions — create a budget, pay any x402 endpoint without holding a private key. Governed by spend limits, URL allowlists, and per-tx ceilings. The agent proposes spend; three.ws governance enforces policy.","codeRepository":"https://github.com/nirholas/agentcore-payments-mcp","programmingLanguage":"JavaScript","license":"https://spdx.org/licenses/Apache-2.0.html","version":"0.1.5","url":"https://nirholas.github.io/agentcore-payments-mcp/","author":{"@type":"Organization","name":"three.ws","url":"https://three.ws"},"keywords":"mcp, model-context-protocol, three.ws, x402, payments, agent-payments, payment-session, spend-governor, solana, usdc, ai-agent, agentcore, mcp-server, ai-agents"}</script>
+<style>:root{--bg:#fff;--fg:#111418;--mut:#586069;--line:#e3e6ea;--acc:#2563eb;--code:#f4f6f8;--card:#fafbfc}
+@media(prefers-color-scheme:dark){:root{--bg:#0b0d10;--fg:#e8eaed;--mut:#9aa3ad;--line:#232830;--acc:#6ea0ff;--code:#14181d;--card:#10141a}}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+a{color:var(--acc)}a:focus-visible,button:focus-visible{outline:2px solid var(--acc);outline-offset:2px;border-radius:4px}
+header.bar{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar-in{max-width:1100px;margin:0 auto;padding:12px 16px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.brand{font-weight:700;text-decoration:none;color:var(--fg)}
+.bar nav{margin-left:auto;display:flex;gap:16px;font-size:14px}
+.bar nav a{color:var(--mut);text-decoration:none;transition:color .15s}.bar nav a:hover{color:var(--fg)}
+.hero{max-width:1100px;margin:0 auto;padding:48px 16px 24px}
+.hero h1{font-size:clamp(28px,5vw,44px);line-height:1.15;margin:0 0 12px;letter-spacing:-.02em}
+.hero p{color:var(--mut);max-width:70ch;font-size:18px;margin:0 0 24px}
+.install{display:flex;align-items:center;gap:8px;max-width:620px;background:var(--code);border:1px solid var(--line);border-radius:10px;padding:6px 6px 6px 14px}
+.install code{flex:1;overflow-x:auto;white-space:nowrap;font:14px ui-monospace,SFMono-Regular,Menlo,monospace}
+.install button{border:0;background:var(--acc);color:#fff;border-radius:7px;padding:8px 14px;font:600 13px system-ui;cursor:pointer;transition:transform .12s,opacity .12s}
+.install button:hover{opacity:.9}.install button:active{transform:scale(.96)}
+.cta{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+.cta a{padding:9px 16px;border:1px solid var(--line);border-radius:8px;text-decoration:none;font-weight:600;font-size:14px;color:var(--fg);transition:border-color .15s,transform .15s}
+.cta a:hover{border-color:var(--acc);transform:translateY(-1px)}.cta a.pri{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.layout{max-width:1100px;margin:0 auto;padding:8px 16px 64px;display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:40px}
+@media(max-width:860px){.layout{grid-template-columns:minmax(0,1fr)}.toc{display:none}}
+.toc{position:sticky;top:76px;align-self:start;font-size:14px;border-left:1px solid var(--line);padding-left:16px}
+.toc p{margin:0 0 8px;font-weight:700;color:var(--mut);text-transform:uppercase;font-size:12px;letter-spacing:.06em}
+.toc ul{list-style:none;margin:0;padding:0}.toc li{margin:6px 0}.toc a{color:var(--mut);text-decoration:none}.toc a:hover{color:var(--fg)}
+main{min-width:0;overflow-wrap:anywhere}main pre code{overflow-wrap:normal}main img{max-width:100%;height:auto}
+main h2{margin-top:2.2em;padding-bottom:.3em;border-bottom:1px solid var(--line)}
+.anchor{margin-left:-1.1em;padding-right:.4em;text-decoration:none;opacity:0;color:var(--mut)}h2:hover .anchor,h3:hover .anchor,h4:hover .anchor{opacity:1}
+pre{background:var(--code);border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow-x:auto;font-size:14px;line-height:1.5}
+code{font:0.9em ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--code);padding:.15em .35em;border-radius:5px}pre code{background:none;padding:0}
+table{border-collapse:collapse;display:block;overflow-x:auto;max-width:100%}th,td{border:1px solid var(--line);padding:8px 12px;text-align:left}th{background:var(--card)}
+blockquote{margin:1em 0;padding:.2em 1em;border-left:4px solid var(--line);color:var(--mut)}
+footer{border-top:1px solid var(--line);color:var(--mut);font-size:14px}
+.foot-in{max-width:1100px;margin:0 auto;padding:24px 16px;display:flex;gap:16px;flex-wrap:wrap}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}</style>
+</head>
+<body>
+<header class="bar"><div class="bar-in">
+<a class="brand" href="https://nirholas.github.io/agentcore-payments-mcp/">@three-ws/agentcore-payments-mcp</a>
+<nav aria-label="Project links"><a href="https://github.com/nirholas/agentcore-payments-mcp">GitHub</a><a href="https://www.npmjs.com/package/@three-ws/agentcore-payments-mcp">npm</a><a href="llms.txt">llms.txt</a><a href="https://three.ws">three.ws</a></nav>
+</div></header>
+<section class="hero">
+<h1>@three-ws/agentcore-payments-mcp</h1>
+<p>Platform-managed agent payment sessions — create a budget, pay any x402 endpoint without holding a private key. Governed by spend limits, URL allowlists, and per-tx ceilings. The agent proposes spend; three.ws governance enforces policy.</p>
+<div class="install" role="group" aria-label="Install command"><code>npx -y @three-ws/agentcore-payments-mcp</code><button type="button" data-copy="npx -y @three-ws/agentcore-payments-mcp">Copy</button></div>
+<div class="cta"><a class="pri" href="https://github.com/nirholas/agentcore-payments-mcp">View on GitHub</a><a href="https://github.com/nirholas/agentcore-payments-mcp/stargazers">Star the repo</a><a href="https://registry.modelcontextprotocol.io/?q=io.github.nirholas%2Fagentcore-payments-mcp">MCP Registry</a></div>
+</section>
+<div class="layout">
+<main id="content"><h1>@three-ws/agentcore-payments-mcp</h1>
+<p>MCP server for three.ws Agent Payment Sessions — govern agent x402 spending without exposing private keys.</p>
+<h2 id="concept"><a class="anchor" href="#concept" aria-label="Link to this section">#</a>Concept</h2>
+<blockquote>
+<p>The agent does not hold a wallet. It proposes spend. Governance enforces policy.</p>
+</blockquote>
+<p>A <strong>Payment Session</strong> is a budget envelope you fund once from your three.ws credits. You hand an agent the session bearer token; the agent calls paid x402 endpoints through this server. The platform&#39;s wallet signs every transaction. The session&#39;s allowlist, per-transaction ceiling, and total budget are enforced atomically on the server — the agent can never overspend.</p>
+<h2 id="quick-start"><a class="anchor" href="#quick-start" aria-label="Link to this section">#</a>Quick start</h2>
+<pre><code class="language-bash"># Configure
+export THREE_WS_SESSION=&quot;&lt;the value of your __Host-sid cookie&gt;&quot;
+export PAYMENT_SESSION_TOKEN=&quot;pss_&lt;session-id&gt;_&lt;random&gt;&quot;
+
+# Run
+npx @three-ws/agentcore-payments-mcp
+</code></pre>
+<p>MCP client config (<code>~/.cursor/mcp.json</code>, Claude Desktop, etc.):</p>
+<pre><code class="language-json">{
+  &quot;mcpServers&quot;: {
+    &quot;three-ws-payments&quot;: {
+      &quot;command&quot;: &quot;npx&quot;,
+      &quot;args&quot;: [&quot;-y&quot;, &quot;@three-ws/agentcore-payments-mcp&quot;],
+      &quot;env&quot;: {
+        &quot;THREE_WS_SESSION&quot;: &quot;&lt;the value of your __Host-sid cookie&gt;&quot;,
+        &quot;PAYMENT_SESSION_TOKEN&quot;: &quot;pss_...&quot;
+      }
+    }
+  }
+}
+</code></pre>
+<h2 id="environment-variables"><a class="anchor" href="#environment-variables" aria-label="Link to this section">#</a>Environment variables</h2>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>THREE_WS_SESSION</code></td>
+<td>For session management tools</td>
+<td>The <strong>value</strong> of your <code>__Host-sid</code> browser cookie (no <code>__Host-sid=</code> prefix; the server sends the cookie for you) for creating/listing/cancelling sessions</td>
+</tr>
+<tr>
+<td><code>PAYMENT_SESSION_TOKEN</code></td>
+<td>For <code>pay_with_session</code> default</td>
+<td>Bearer token returned when you created a session; passed as the default when no inline token is provided</td>
+</tr>
+<tr>
+<td><code>THREE_WS_BASE</code></td>
+<td>No</td>
+<td>Base URL (default: <code>https://three.ws</code>)</td>
+</tr>
+<tr>
+<td><code>THREE_WS_TIMEOUT_MS</code></td>
+<td>No</td>
+<td>Request timeout in ms (default: 30000)</td>
+</tr>
+</tbody></table>
+<h2 id="tools"><a class="anchor" href="#tools" aria-label="Link to this section">#</a>Tools</h2>
+<h3 id="createpaymentsession"><a class="anchor" href="#createpaymentsession" aria-label="Link to this section">#</a><code>create_payment_session</code></h3>
+<p>Create a new session funded from your credits.</p>
+<pre><code class="language-json">{
+  &quot;budget_usd&quot;: 10.00,
+  &quot;label&quot;: &quot;Research agent — June sprint&quot;,
+  &quot;expiry_seconds&quot;: 86400,
+  &quot;max_per_tx_usd&quot;: 0.50,
+  &quot;allowed_hosts&quot;: [&quot;api.example.com&quot;, &quot;data.provider.io&quot;],
+  &quot;network&quot;: &quot;solana&quot;
+}
+</code></pre>
+<p>Returns <code>{ session, token }</code>. <strong>The token is shown once — store it immediately.</strong></p>
+<h3 id="paywithsession"><a class="anchor" href="#paywithsession" aria-label="Link to this section">#</a><code>pay_with_session</code></h3>
+<p>Pay an x402 endpoint using a session token. The platform wallet signs; your session&#39;s policy is enforced.</p>
+<pre><code class="language-json">{
+  &quot;url&quot;: &quot;https://api.example.com/data&quot;,
+  &quot;method&quot;: &quot;GET&quot;,
+  &quot;session_token&quot;: &quot;pss_...&quot;,
+  &quot;idempotency_key&quot;: &quot;run-42-fetch-data&quot;
+}
+</code></pre>
+<p>Returns <code>{ ok, paid, result, payment, session }</code> with the tx hash, explorer link, and updated budget.</p>
+<p>If <code>session_token</code> is omitted, the <code>PAYMENT_SESSION_TOKEN</code> env var is used.</p>
+<h3 id="checkpaymentsession"><a class="anchor" href="#checkpaymentsession" aria-label="Link to this section">#</a><code>check_payment_session</code></h3>
+<p>Inspect a session&#39;s budget, status, and recent payments.</p>
+<pre><code class="language-json">{ &quot;session_id&quot;: &quot;...&quot;, &quot;include_executions&quot;: true }
+</code></pre>
+<h3 id="listpaymentsessions"><a class="anchor" href="#listpaymentsessions" aria-label="Link to this section">#</a><code>list_payment_sessions</code></h3>
+<p>List all sessions for the authenticated user, with aggregate stats.</p>
+<pre><code class="language-json">{ &quot;status&quot;: &quot;active&quot;, &quot;limit&quot;: 20 }
+</code></pre>
+<h3 id="cancelpaymentsession"><a class="anchor" href="#cancelpaymentsession" aria-label="Link to this section">#</a><code>cancel_payment_session</code></h3>
+<p>Cancel a session and refund the un-spent budget to your credits.</p>
+<pre><code class="language-json">{ &quot;session_id&quot;: &quot;...&quot; }
+</code></pre>
+<h2 id="network-support"><a class="anchor" href="#network-support" aria-label="Link to this section">#</a>Network support</h2>
+<table>
+<thead>
+<tr>
+<th>Session <code>network</code></th>
+<th>Platform payer</th>
+<th>USDC contract</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>solana</code> (default)</td>
+<td><code>X402_AGENT_SOLANA_SECRET_BASE58</code></td>
+<td>Solana mainnet USDC</td>
+</tr>
+<tr>
+<td><code>base</code></td>
+<td><code>X402_EVM_AGENT_PRIVATE_KEY</code></td>
+<td>Base mainnet USDC (0x8335…)</td>
+</tr>
+</tbody></table>
+<h2 id="integrating-with-three-wsx402-mcp"><a class="anchor" href="#integrating-with-three-wsx402-mcp" aria-label="Link to this section">#</a>Integrating with <code>@three-ws/x402-mcp</code></h2>
+<p>The existing <code>pay_and_call</code> tool in <code>@three-ws/x402-mcp</code> now accepts <code>session_token</code> directly:</p>
+<pre><code class="language-json">{
+  &quot;url&quot;: &quot;https://api.example.com/endpoint&quot;,
+  &quot;session_token&quot;: &quot;pss_...&quot;,
+  &quot;confirm&quot;: true
+}
+</code></pre>
+<p>This routes the payment through <code>/api/pay/execute</code> instead of signing locally — the session&#39;s governance policy applies.</p>
+<h2 id="examples"><a class="anchor" href="#examples" aria-label="Link to this section">#</a>Examples</h2>
+<p>Runnable, no-payment examples live in <a href="https://github.com/nirholas/agentcore-payments-mcp/blob/main/examples"><code>examples/</code></a>:</p>
+<pre><code class="language-bash">node examples/list-tools.mjs       # every tool with its schema and safety annotations
+node examples/plan-a-session.mjs   # read live x402 prices, print the policy to authorize
+</code></pre>
+<p>Neither one holds a wallet, reads a credential, or calls <code>pay_with_session</code>, so
+nothing is signed and nothing is spent. <code>plan-a-session.mjs</code> is the habit worth
+copying: read what an endpoint actually charges before you decide what budget to
+authorize. See <a href="https://github.com/nirholas/agentcore-payments-mcp/blob/main/examples/README.md"><code>examples/README.md</code></a>.</p>
+<h2 id="session-lifecycle"><a class="anchor" href="#session-lifecycle" aria-label="Link to this section">#</a>Session lifecycle</h2>
+<pre><code>create (budget debited from credits)
+  └─ active → pay_with_session calls spend against budget
+       ├─ exhausted (budget fully consumed)
+       ├─ expired (TTL elapsed — cron refunds remaining budget)
+       └─ cancelled (manual — remaining budget refunded immediately)
+</code></pre>
+<h2 id="programmatic-use"><a class="anchor" href="#programmatic-use" aria-label="Link to this section">#</a>Programmatic use</h2>
+<p>The package entry point exports <strong><code>TOOLS</code></strong> (every tool definition: <code>name</code>, <code>title</code>,
+<code>description</code>, <code>inputSchema</code>, <code>annotations</code>, <code>handler</code>) and <strong><code>buildServer()</code></strong>, which returns a
+fully-registered <code>McpServer</code> with no transport attached. Importing is side-effect free and needs
+no credential, so you can mount these tools inside a host of your own or inspect the surface
+offline; a credential is only required when a handler actually runs.</p>
+<pre><code class="language-js">// run with: THREE_WS_SESSION=&lt;your __Host-sid value&gt; node this-file.mjs
+import { TOOLS, buildServer } from &#39;@three-ws/agentcore-payments-mcp&#39;;
+
+for (const tool of TOOLS) {
+	const kind = tool.annotations.readOnlyHint ? &#39;read &#39; : &#39;write&#39;;
+	console.log(`${kind} ${tool.name}`);
+}
+
+// A tool handler is a plain async function against the live API.
+const list = TOOLS.find((t) =&gt; t.name === &#39;list_payment_sessions&#39;);
+console.log(await list.handler({ limit: 3 }));
+
+// Or hand the whole registered server to your own MCP transport.
+buildServer();
+</code></pre>
+<h2 id="security-properties"><a class="anchor" href="#security-properties" aria-label="Link to this section">#</a>Security properties</h2>
+<ul>
+<li><strong>No key exposure</strong>: the session token is a time-bounded, HMAC-signed grant. Compromising it lets an attacker spend up to the remaining budget at allowed hosts — nothing more.</li>
+<li><strong>Atomic budget enforcement</strong>: concurrent payments use a SQL <code>UPDATE … WHERE remaining &gt;= amount RETURNING</code> — two simultaneous requests can never collectively overspend.</li>
+<li><strong>Allowlist</strong>: if <code>allowed_hosts</code> is set, the governor rejects any request to a host not on the list before signing.</li>
+<li><strong>Per-transaction cap</strong>: <code>max_per_tx_usd</code> prevents a single large payment draining the entire budget.</li>
+<li><strong>SSRF protection</strong>: all x402 target URLs are validated against a public-IP allowlist and DNS-resolved server-side before any payment is signed.</li>
+</ul>
+</main>
+<nav class="toc" aria-label="On this page"><p>On this page</p><ul><li><a href="#concept">Concept</a></li><li><a href="#quick-start">Quick start</a></li><li><a href="#environment-variables">Environment variables</a></li><li><a href="#tools">Tools</a></li><li><a href="#network-support">Network support</a></li><li><a href="#integrating-with-three-wsx402-mcp">Integrating with @three-ws/x402-mcp</a></li><li><a href="#examples">Examples</a></li><li><a href="#session-lifecycle">Session lifecycle</a></li><li><a href="#programmatic-use">Programmatic use</a></li><li><a href="#security-properties">Security properties</a></li></ul></nav>
+</div>
+<footer><div class="foot-in"><span>Apache-2.0 licensed</span><a href="https://github.com/nirholas/agentcore-payments-mcp/issues">Issues</a><a href="https://github.com/nirholas/agentcore-payments-mcp/blob/main/CONTRIBUTING.md">Contributing</a><a href="https://github.com/nirholas/agentcore-payments-mcp/security/policy">Security</a><a href="https://three.ws">Part of three.ws</a></div></footer>
+<script>document.querySelectorAll('[data-copy]').forEach(function(b){b.addEventListener('click',function(){
+var t=b.getAttribute('data-copy');var done=function(){var o=b.textContent;b.textContent='Copied';setTimeout(function(){b.textContent=o},1400)};
+if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done,function(){})}
+else{var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy');done()}catch(e){}a.remove()}})});</script>
+</body>
+</html>

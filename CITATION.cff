@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: If you use this software, please cite it as below.
+title: "@three-ws/agentcore-payments-mcp"
+abstract: "Platform-managed agent payment sessions — create a budget, pay any x402 endpoint without holding a private key. Governed by spend limits, URL allowlists, and per-tx ceilings. The agent proposes spend; three.ws governance enforces policy."
+version: 0.1.5
+license: Apache-2.0
+repository-code: "https://github.com/nirholas/agentcore-payments-mcp"
+url: "https://three.ws"
+authors:
+  - name: three.ws
+    website: "https://three.ws"

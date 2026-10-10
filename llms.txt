@@ -1,0 +1,20 @@
+# @three-ws/agentcore-payments-mcp
+
+> Platform-managed agent payment sessions — create a budget, pay any x402 endpoint without holding a private key. Governed by spend limits, URL allowlists, and per-tx ceilings. The agent proposes spend; three.ws governance enforces policy.
+
+@three-ws/agentcore-payments-mcp is a Model Context Protocol server from three.ws. Install: `npx -y @three-ws/agentcore-payments-mcp`.
+
+## Docs
+
+- [README](https://github.com/nirholas/agentcore-payments-mcp/blob/main/README.md): install, configuration, full reference
+- [Documentation site](https://nirholas.github.io/agentcore-payments-mcp/): the README as a web page
+- [Full text for LLMs](https://nirholas.github.io/agentcore-payments-mcp/llms-full.txt): README inlined
+- [AGENTS.md](https://github.com/nirholas/agentcore-payments-mcp/blob/main/AGENTS.md): guidance for coding agents
+
+## Project
+
+- [Source](https://github.com/nirholas/agentcore-payments-mcp)
+- [npm](https://www.npmjs.com/package/@three-ws/agentcore-payments-mcp)
+- [three.ws](https://three.ws): the platform this is part of
+- [Issues](https://github.com/nirholas/agentcore-payments-mcp/issues)
+- [MCP Registry](https://registry.modelcontextprotocol.io/?q=io.github.nirholas%2Fagentcore-payments-mcp)
