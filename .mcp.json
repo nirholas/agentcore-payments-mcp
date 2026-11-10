@@ -1,0 +1,1 @@
+{"mcpServers": {"three-ws-payments": {"command": "npx", "args": ["-y", "@three-ws/agentcore-payments-mcp"], "env": {"THREE_WS_SESSION": "${THREE_WS_SESSION}", "PAYMENT_SESSION_TOKEN": "${PAYMENT_SESSION_TOKEN}"}}}}
